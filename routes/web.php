@@ -25,7 +25,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/penerimaan','PenerimaanController@index');
 Route::get('/penerimaan/create','PenerimaanController@create');
-Route::get('/penerimaan/{id}','PenerimaanController@show');
+Route::get('/penerimaan/{id}','PenerimaanController@edit');
 Route::post('/penerimaan','PenerimaanController@store');
+Route::put('/penerimaan/{id}','PenerimaanController@update');
+Route::get('/penerimaan/delete/{id}','PenerimaanController@destroy')->name('penerimaan.delete');
 
 Route::get('/belanja','BelanjaController@index');
+Route::get('/belanja/create','BelanjaController@create');
+Route::get('/belanja/{id}','BelanjaController@edit');
+Route::post('/belanja','BelanjaController@store');
+Route::put('/belanja/{id}','BelanjaController@update');
+Route::get('/belanja/delete/{id}','BelanjaController@destroy')->name('belanja.delete');

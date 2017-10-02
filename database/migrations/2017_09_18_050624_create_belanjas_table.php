@@ -18,7 +18,8 @@ class CreateBelanjasTable extends Migration
             $table->string('keterangan');
             $table->double('deposit');
             $table->integer('tahun');
-            $table->integer('bulan');
+            $table->string('bulan');
+            $table->string('user');
             $table->timestamps();
         });
     }

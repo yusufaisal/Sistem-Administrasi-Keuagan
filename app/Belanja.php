@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Belanja extends Model
 {
     protected $fillable = [
-        'keterangan','doposit','tahun','bulan'
+        'keterangan','deposit','tahun','bulan', 'user'
     ];
 }

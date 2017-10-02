@@ -6,6 +6,7 @@ use App\Http\Requests\PenerimaanRequest;
 use App\Penerimaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PenerimaanController extends Controller
 {
@@ -15,13 +16,13 @@ class PenerimaanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-        $this ->middleware('auth');
-    }
+    $this ->middleware('auth');
+}
 
     public function index()
     {
         $penerimaan = Penerimaan::paginate(15);
-        $i =1;
+        $i = 1;
         return view('Fungsionalitas.Penerimaan.index', compact('penerimaan','i'));
     }
 
@@ -47,6 +48,8 @@ class PenerimaanController extends Controller
         $penerimaan = new Penerimaan($input);
         $penerimaan->user = Auth::user()->name;
         $penerimaan->save();
+
+        Session::flash('message', 'Data successfully added!');
         return redirect(url('/penerimaan'));
     }
 
@@ -58,8 +61,7 @@ class PenerimaanController extends Controller
      */
     public function show($id)
     {
-        $penerimaan = Penerimaan::findOrFail($id);
-        return view('Fungsionalitas.Penerimaan.show',compact('penerimaan'));
+        //
     }
 
     /**
@@ -68,9 +70,10 @@ class PenerimaanController extends Controller
      * @param  \App\Penerimaan  $penerimaan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penerimaan $penerimaan)
+    public function edit($id)
     {
-        //
+        $penerimaan = Penerimaan::findOrFail($id);
+        return view('Fungsionalitas.Penerimaan.edit',compact('penerimaan'));
     }
 
     /**
@@ -80,9 +83,18 @@ class PenerimaanController extends Controller
      * @param  \App\Penerimaan  $penerimaan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Penerimaan $penerimaan)
+    public function update(PenerimaanRequest $request, $id)
     {
-        //
+        $penerimaan = Penerimaan::findorfail($id);
+        $penerimaan->profit = $request->input('profit');
+        $penerimaan->keterangan = $request->input('keterangan');
+        $penerimaan->tahun = $request->input('tahun');
+        $penerimaan->bulan = $request->input('bulan');
+        $penerimaan->save();
+
+
+        Session::flash('message', 'Data successfully updated!');
+        return redirect(url('penerimaan/'));
     }
 
     /**
@@ -91,8 +103,12 @@ class PenerimaanController extends Controller
      * @param  \App\Penerimaan  $penerimaan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penerimaan $penerimaan)
+    public function destroy($id)
     {
-        //
+        $penerimaan = Penerimaan::find($id);
+        $penerimaan -> delete();
+
+        Session::flash('message', 'Data successfully deleted!');
+        return redirect(url('penerimaan/'));
     }
 }
