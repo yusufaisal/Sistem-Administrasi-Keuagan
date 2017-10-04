@@ -3,8 +3,11 @@
 
 @include('layout.header_script')
 
-<body class="hold-transition skin-red layout-top-nav">
+<body class=" skin-red layout-top-nav sidebar-collapse">
 <div class="wrapper">
+    @if(\Illuminate\Support\Facades\Auth::check())
+        @include('layout.sidebar')
+    @endif
 
     @include('layout.header')
 

@@ -1,8 +1,14 @@
 <!-- Header -->
 <header class="main-header">
-    <nav class="navbar navbar-static-top bg-blue">
-        <div class="container">
+    <nav class="navbar navbar-static-top bg-blue ">
+        @if (\Illuminate\Support\Facades\Auth::check())
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+        @endif
 
+
+        <div class="container">
             <div class="navbar-header">
                 <a href="#" class="navbar-brand"><b>Sistem</b> Adm.</a>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">

@@ -12,12 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));
 });
-
-//Route::get('/laporan', function (){
-//    return view('Fungsionalitas\Jurnal\index');
-//});
 
 Auth::routes();
 
