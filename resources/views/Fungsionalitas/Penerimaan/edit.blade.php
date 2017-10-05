@@ -7,7 +7,7 @@
                 <div class="panel-heading bg-blue"><b>Edit Penerimaan</b></div>
                 <div class="panel-body">
                     <div class="box-body">
-                        <form action="{{url('/penerimaan')}}" method="POST">
+                        <form action="{{url('/penerimaan/'.$penerimaan->id)}}" method="POST">
                             {{csrf_field()}}
                             {{method_field('PUT')}}
                             <label for="profit">Profit:</label>
