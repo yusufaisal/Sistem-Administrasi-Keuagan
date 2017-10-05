@@ -27,7 +27,6 @@ class PenerimaanTest extends TestCase
     {
         $penerimaan = factory(Penerimaan::class)->make();
         $penerimaan->save();
-
         $found_penerimaan = Penerimaan::find(1);
         $this->assertEquals($penerimaan->keterangan,$found_penerimaan->keterangan);
     }
@@ -36,7 +35,6 @@ class PenerimaanTest extends TestCase
     {
         $penerimaan = factory(Penerimaan::class)->create();
         $penerimaan->save();
-
         $found_penerimaan = Penerimaan::find(1);
         $found_penerimaan->delete();
 
