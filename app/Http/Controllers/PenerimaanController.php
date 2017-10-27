@@ -21,7 +21,7 @@ class PenerimaanController extends Controller
 
     public function index()
     {
-        $penerimaan = Penerimaan::paginate(15);
+        $penerimaan = Penerimaan::where('tipe','=','Penerimaan')->paginate(15);
         $i = 1;
         return view('Fungsionalitas.Penerimaan.index', compact('penerimaan','i'));
     }
@@ -46,8 +46,9 @@ class PenerimaanController extends Controller
     {
         $input = $request->input();
         $penerimaan = new Penerimaan($input);
-        $penerimaan->user = Auth::user()->name;
-        $penerimaan->save();
+        $penerimaan->tipe = 'Penerimaan';
+        $penerimaan->deposit = 0;
+        Auth::user()->Penerimaan()->save($penerimaan);
 
         Session::flash('message', 'Data successfully added!');
         return redirect(url('/penerimaan'));
@@ -72,7 +73,7 @@ class PenerimaanController extends Controller
      */
     public function edit($id)
     {
-        $penerimaan = Penerimaan::findOrFail($id);
+        $penerimaan = Auth::User()->Penerimaan->where('id','=',$id)->where('tipe','=','Penerimaan')->first();
         return view('Fungsionalitas.Penerimaan.edit',compact('penerimaan'));
     }
 
@@ -85,7 +86,7 @@ class PenerimaanController extends Controller
      */
     public function update(PenerimaanRequest $request, $id)
     {
-        $penerimaan = Penerimaan::findorfail($id);
+        $penerimaan = Auth::User()->Penerimaan->where('id','=',$id)->where('tipe','=','Penerimaan')->first();
         $penerimaan->profit = $request->input('profit');
         $penerimaan->keterangan = $request->input('keterangan');
         $penerimaan->tahun = $request->input('tahun');
@@ -105,7 +106,7 @@ class PenerimaanController extends Controller
      */
     public function destroy($id)
     {
-        $penerimaan = Penerimaan::find($id);
+        $penerimaan = Auth::User()->Penerimaan->where('id','=',$id)->where('tipe','=','Penerimaan')->first();
         $penerimaan -> delete();
 
         Session::flash('message', 'Data successfully deleted!');

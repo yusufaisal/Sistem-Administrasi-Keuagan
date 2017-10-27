@@ -35,8 +35,10 @@
                                             <td>{{$item->bulan}}</td>
                                             <td><span class="badge bg-green">{{$item->tahun}}</span></td>
                                             <td>{{$item->keterangan}}</td>
-                                            <td>{{$item->user}}</td>
-                                            <td><a href="{{url("penerimaan/".$item->id)}}" class="btn-xs btn-success">Edit</a> | <a href="{{route('penerimaan.delete',$item->id)}}" class="btn-xs btn-danger" onclick="return confirm('Are you sure want to delete?')">Delete</a></td>
+                                            <td>{{$item->user->name}}</td>
+                                            @if($item->user->id == \Illuminate\Support\Facades\Auth::user()->id)
+                                                <td><a href="{{url("penerimaan/".$item->id)}}" class="btn-xs btn-success">Edit</a> | <a href="{{route('penerimaan.delete',$item->id)}}" class="btn-xs btn-danger" onclick="return confirm('Are you sure want to delete?')">Delete</a></td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                     </tbody></table>
