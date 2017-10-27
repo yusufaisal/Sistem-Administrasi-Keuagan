@@ -21,7 +21,7 @@ class BelanjaController extends Controller
 
     public function index()
     {
-        $belanja = Belanja::paginate(15);
+        $belanja = Belanja::where('tipe','=','Belanja')->paginate(15);
         $i = 1;
 
         return view('Fungsionalitas.Belanja.index', compact('belanja','i'));
@@ -47,8 +47,9 @@ class BelanjaController extends Controller
     {
         $input = $request->input();
         $belanja = new Belanja($input);
-        $belanja->user = Auth::user()->name;
-        $belanja->save();
+        $belanja->tipe = 'Belanja';
+        $belanja->profit = 0;
+        Auth::user()->Belanja()->save($belanja);
 
         Session::flash('message', 'Data successfully added!');
         return redirect(url('belanja/'));
@@ -73,8 +74,7 @@ class BelanjaController extends Controller
      */
     public function edit($id)
     {
-        $belanja = Belanja::findorfail($id);
-
+        $belanja = Auth::User()->Belanja->where('id','=',$id)->where('tipe','=','Belanja')->first();
         return view('Fungsionalitas.Belanja.edit',compact('belanja'));
     }
 
@@ -87,7 +87,7 @@ class BelanjaController extends Controller
      */
     public function update(BelanjaRequest $request, $id)
     {
-        $belanja = Belanja::findorfail($id);
+        $belanja = Auth::User()->Belanja->where('id','=',$id)->where('tipe','=','Belanja')->first();
         $belanja->deposit = $request->input('deposit');
         $belanja->keterangan = $request->input('keterangan');
         $belanja->tahun = $request->input('tahun');
@@ -107,7 +107,7 @@ class BelanjaController extends Controller
      */
     public function destroy($id)
     {
-        $belanja = Belanja::find($id);
+        $belanja = Auth::User()->Belanja->where('id','=',$id)->where('tipe','=','Belanja')->first();
         $belanja -> delete();
 
         Session::flash('message', 'Data successfully deleted!');

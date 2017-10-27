@@ -19,8 +19,9 @@ class CreateJurnalsTable extends Migration
             $table->double('profit');
             $table->double('deposit');
             $table->integer('tahun');
-            $table->integer('bulan');
-            $table->string('user');
+            $table->string('bulan');
+            $table->string('user_id');
+            $table->string('tipe');
             $table->timestamps();
         });
     }
